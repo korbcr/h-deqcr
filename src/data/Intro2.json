@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "title": { "first": "Equilibrio", "second": "Carácter y Honestidad" },
+    "content": {
+      "first": "El balance de un proyecto exitoso requiere de una estrategia entre",
+      "second": "estos tres elementos"
+    },
+    "image": "/assets/img/slid/n/01.jpg"
+  },
+  {
+    "id": 2,
+    "title": { "first": "Innovative", "second": "Interior Design" },
+    "content": {
+      "first": "Right design and right ideas matter a lot of in interior design",
+      "second": "business. a style that makes a statement."
+    },
+    "image": "/assets/img/slid/n/02.jpg"
+  },
+  {
+    "id": 3,
+    "title": { "first": "Elegant &", "second": "Unique Design" },
+    "content": {
+      "first": "Right design and right ideas matter a lot of in interior design",
+      "second": "business. a style that makes a statement."
+    },
+    "image": "/assets/img/slid/n/03.jpg"
+  }
+]
