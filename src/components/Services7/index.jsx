@@ -1,21 +1,29 @@
 import React from "react";
 
-const Services7 = ({ services }) => {
+const Services7 = ({ services = [] }) => {
   const renderServices = () => {
+    if (!services || !Array.isArray(services) || services.length === 0) {
+      return (
+        <div className="col-12 text-center">
+          <p>No hay servicios disponibles.</p>
+        </div>
+      );
+    }
+
     const list = services.map((service, index) => {
       return (
         <div key={`service-${index}`} className="col-lg-4">
           <div className="item md-mb50">
-            <span className={`icon ${service.icon_name}`}></span>
-            <h6>{service.title}</h6>
-            {service.description.map((paragraph, p) => {
+            <span className={`icon ${service?.icon_name || ''}`}></span>
+            <h6>{service?.title || 'Servicio'}</h6>
+            {service?.description?.map((paragraph, p) => {
               return (
                 <div key={`paragraph-${p}`}>
-                  <p>{paragraph.children[0].text}</p>
+                  <p>{paragraph?.children?.[0]?.text || ''}</p>
                   <br />
                 </div>
               );
-            })}
+            }) || <p>Descripción no disponible</p>}
           </div>
         </div>
       );

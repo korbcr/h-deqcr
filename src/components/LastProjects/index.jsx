@@ -4,9 +4,17 @@ import { es } from "date-fns/locale";
 import Link from "next/link";
 import { API_CONFIG } from "../../config/api";
 
-const LastProjects = ({ smallTitle, projects }) => {
+const LastProjects = ({ smallTitle, projects = [] }) => {
   
   const renderProjects = () => {
+    if (!projects || !Array.isArray(projects) || projects.length === 0) {
+      return (
+        <div className="col-12 text-center">
+          <p>No hay proyectos disponibles.</p>
+        </div>
+      );
+    }
+
     const list = projects.map((project, index) => {
       return (
         <div key={project.id} className="col-lg-4 mb-10">

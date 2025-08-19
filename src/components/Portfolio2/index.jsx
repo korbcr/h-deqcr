@@ -3,29 +3,41 @@ import Link from "next/link";
 import worksCardEffect from "../../common/worksCardEffect";
 import { API_CONFIG } from "../../config/api";
 
-const Portfolio2 = ({ projects }) => {
+const Portfolio2 = ({ projects = [] }) => {
   React.useEffect(() => {
     worksCardEffect();
   }, []);
 
   const renderProjects = () => {
+    if (!projects || !Array.isArray(projects) || projects.length === 0) {
+      return (
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12 text-center">
+              <p>No hay proyectos disponibles.</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="container-fluid">
         <div className="row">
           {projects.map((project, index) => (
             <div
-              key={project.id}
+              key={project?.id || index}
               className={`col-lg-3 col-md-6 cluom ${
                 index === 0 ? "current" : ""
               }`}
               data-tab={`tab-${index + 1}`}
             >
               <div className="info">
-                <h6 className="custom-font">{project.location}</h6>
-                <h5>{project.title}</h5>
+                <h6 className="custom-font">{project?.location || "Ubicación no disponible"}</h6>
+                <h5>{project?.title || "Título no disponible"}</h5>
               </div>
               <div className="more">
-                <Link href={`/proyectos/${project.slug}`}>
+                <Link href={`/proyectos/${project?.slug || "#"}`}>
                   <a>
                     Ver Proyecto <i className="fas fa-chevron-right"></i>
                   </a>
@@ -37,11 +49,11 @@ const Portfolio2 = ({ projects }) => {
         <div className="glry-img">
           {projects.map((project, index) => (
             <div
-              key={index}
+              key={`img-${index}`}
               id={`tab-${index + 1}`}
               className={`bg-img tab-img ${index === 0 ? "current" : ""}`}
               style={{
-                backgroundImage: `url('${API_CONFIG.baseURL}${project.image[0].url}')`,
+                backgroundImage: `url('${project?.image?.[0]?.url ? API_CONFIG.baseURL + project.image[0].url : "/assets/img/portfolio/project1/bg.jpg"}')`,
               }}
               data-overlay-dark="2"
             ></div>

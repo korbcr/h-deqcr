@@ -14,7 +14,7 @@ import { API_CONFIG } from "../../config/api";
 
 SwiperCore.use([Navigation, Pagination, Parallax]);
 
-const IntroWithVertical2 = ({ slider }) => {
+const IntroWithVertical2 = ({ slider = [] }) => {
   const [load, setLoad] = React.useState(true);
   React.useEffect(() => {
     setTimeout(() => {
@@ -84,16 +84,16 @@ const IntroWithVertical2 = ({ slider }) => {
               }}
               className="swiper-wrapper cta__slider"
             >
-              {slider.map((slide) => (
+              {slider && slider.length > 0 ? slider.map((slide) => (
                 <SwiperSlide
-                  key={slide.id}
+                  key={slide?.id || Math.random()}
                   className="cta__slider-item swiper-slide"
                 >
                   <div className="media-wrapper slide-inner valign">
                     <div
                       className="bg-img"
                       style={{
-                        backgroundImage: `url('${API_CONFIG.baseURL}${slide.image.url}')`,
+                        backgroundImage: `url('${slide?.image?.url ? API_CONFIG.baseURL + slide.image.url : '/assets/img/sliders/1.jpg'}')`,
                       }}
                       data-overlay-dark="5"
                     ></div>
@@ -135,7 +135,28 @@ const IntroWithVertical2 = ({ slider }) => {
                     </div>
                   </div>
                 </SwiperSlide>
-              ))}
+              )) : (
+                <SwiperSlide className="cta__slider-item swiper-slide">
+                  <div className="media-wrapper slide-inner valign">
+                    <div
+                      className="bg-img"
+                      style={{
+                        backgroundImage: `url('/assets/img/sliders/1.jpg')`,
+                      }}
+                      data-overlay-dark="5"
+                    ></div>
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-lg-7 col-md-9">
+                          <div className="caption center">
+                            <h1>No hay contenido disponible</h1>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              )}
             </Swiper>
           ) : null}
           <div className="cta__slider-arrows">

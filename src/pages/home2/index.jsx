@@ -10,8 +10,9 @@ import IntroWithVertical from "../../components/Intro-with-vertical";
 import Process from "../../components/Process";
 import Brands from "../../components/Brands";
 import LightLayout from "../../layouts/light";
+import { apiRequest, API_CONFIG } from "../../config/api";
 
-const Home1 = () => {
+const Home1 = ({ projects = [] }) => {
   React.useEffect(() => {
     document.querySelector("body").classList.add("homepage");
   }, []);
@@ -20,7 +21,7 @@ const Home1 = () => {
       <IntroWithVertical />
       <Services2 />
       <AboutUs2 />
-      <Portfolio2 />
+      <Portfolio2 projects={projects} />
       <Process />
       <Team1 />
       <Testimonials1 withBg />
@@ -29,5 +30,31 @@ const Home1 = () => {
     </LightLayout>
   );
 };
+
+export async function getStaticProps() {
+  try {
+    // Obtener proyectos del API
+    const projectsData = await apiRequest('/api/projects?populate=image&pagination[limit]=6');
+    
+    return {
+      props: {
+        projects: projectsData?.data || [],
+      },
+      // Revalidar cada 60 segundos (ISR - Incremental Static Regeneration)
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error('Error fetching projects for home2:', error);
+    
+    // En caso de error, retornar props vacías
+    return {
+      props: {
+        projects: [],
+      },
+      // Reintentar más frecuentemente en caso de error
+      revalidate: 10,
+    };
+  }
+}
 
 export default Home1;

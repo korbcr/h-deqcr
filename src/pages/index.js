@@ -3,7 +3,17 @@ import Home7 from "./home7";
 import { apiRequest, API_CONFIG } from "../config/api";
 
 export default function Home({ contentPage }) {
-  return <Home7 content={contentPage} />;
+  // Asegurar que siempre hay una estructura válida
+  const safeContentPage = contentPage || {
+    data: {
+      slider: [],
+      services: [],
+      featured_projects: [],
+      projects: []
+    }
+  };
+  
+  return <Home7 content={safeContentPage} />;
 }
 
 export async function getStaticProps() {
@@ -23,10 +33,17 @@ export async function getStaticProps() {
   } catch (error) {
     console.error('Error fetching content:', error);
     
-    // En caso de error, retornar props vacías o datos por defecto
+    // En caso de error, retornar estructura por defecto
     return {
       props: {
-        contentPage: null,
+        contentPage: {
+          data: {
+            slider: [],
+            services: [],
+            featured_projects: [],
+            projects: []
+          }
+        },
       },
       // Reintentar más frecuentemente en caso de error
       revalidate: 10,
