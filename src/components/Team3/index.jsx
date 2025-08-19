@@ -1,12 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
+import Link from "next/link";
 
 const Team3 = () => {
   return (
     <section className="team section-padding">
       <div className="container">
         <div className="section-head">
-          <h3>Nuestro Equipo</h3>
+          <h6 className="fw-100 text-u ls10 main-color mb-10">Proyectos</h6>
+          <h3>Destacados</h3>
         </div>
       </div>
       <div className="container-fluid">
@@ -167,6 +169,13 @@ const Team3 = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12 col-md-12 text-center">
+            <Link href="/proyectos">
+              <a className="mt-30 ls5 pull-right">MÁS Proyectos</a>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,43 +1,37 @@
 import React from "react";
 
-const Services7 = () => {
+const Services7 = ({ services }) => {
+  const renderServices = () => {
+    const list = services.map((service, index) => {
+      return (
+        <div key={`service-${index}`} className="col-lg-4">
+          <div className="item md-mb50">
+            <span className={`icon ${service.icon_name}`}></span>
+            <h6>{service.title}</h6>
+            {service.description.map((paragraph, p) => {
+              return (
+                <div key={`paragraph-${p}`}>
+                  <p>{paragraph.children[0].text}</p>
+                  <br />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    });
+    return list;
+  };
+
   return (
     <section className="services section-padding pb-0">
       <div className="container">
         <div className="section-head">
+          <h6 className="fw-100 text-u ls10 main-color mb-10">Nuestros</h6>
           <h3>Servicios</h3>
         </div>
         <div className="row">
-          <div className="col-lg-4">
-            <div className="item md-mb50">
-              <span className="icon flaticon-sketch"></span>
-              <h6>Planos &amp; Diseño Arquitectónico</h6>
-              <p>
-                At vero eos et accusamus et iusto odio dignis simos ducimus qui
-                blanditiis praesnti um voluptatum deleniti
-              </p>
-            </div>
-          </div>
-          <div className="col-lg-4">
-            <div className="item md-mb50">
-              <span className="icon flaticon-furniture"></span>
-              <h6>Administración &amp; Construcción</h6>
-              <p>
-                At vero eos et accusamus et iusto odio dignis simos ducimus qui
-                blanditiis praesnti um voluptatum deleniti
-              </p>
-            </div>
-          </div>
-          <div className="col-lg-4">
-            <div className="item">
-              <span className="icon flaticon-home-1"></span>
-              <h6>Diseño Estructural y Electromecánico</h6>
-              <p>
-                At vero eos et accusamus et iusto odio dignis simos ducimus qui
-                blanditiis praesnti um voluptatum deleniti
-              </p>
-            </div>
-          </div>
+          {renderServices()}
         </div>
       </div>
     </section>

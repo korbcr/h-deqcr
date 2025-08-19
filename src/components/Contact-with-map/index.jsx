@@ -18,7 +18,7 @@ const ContactWithMap = () => {
                   id="form_name"
                   type="text"
                   name="name"
-                  placeholder="Name"
+                  placeholder="Nombre"
                   required="required"
                 />
               </div>
@@ -28,7 +28,7 @@ const ContactWithMap = () => {
                   id="form_email"
                   type="email"
                   name="email"
-                  placeholder="Email"
+                  placeholder="Correo Electrónico"
                   required="required"
                 />
               </div>
@@ -37,14 +37,14 @@ const ContactWithMap = () => {
                 <textarea
                   id="form_message"
                   name="message"
-                  placeholder="Message"
+                  placeholder="Mensaje"
                   rows="4"
                   required="required"
                 ></textarea>
               </div>
 
               <button type="submit" className="btn-curve btn-color">
-                <span>Send Message</span>
+                <span>Enviar Mensaje</span>
               </button>
             </div>
           </form>

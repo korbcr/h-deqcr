@@ -1,30 +1,30 @@
 [
-    {
-        "id": 1,
-        "image": "/assets/img/team/1.jpg",
-        "content": "I just love their design for all stunning details. You must know what can you do for a project before taking it, but with Archo, the sky is the limit.",
-        "username": "Mitchl Jhon",
-        "usertitle": "Envato Customer"
-    },
-    {
-      "id": 2,
-      "image": "/assets/img/team/2.jpg",
-      "content": "I just love their design for all stunning details. You must know what can you do for a project before taking it, but with Archo, the sky is the limit.",
-      "username": "Jane Smith",
-      "usertitle": "Envato Customer"
-    },
-    {
-      "id": 3,
-      "image": "/assets/img/team/3.jpg",
-      "content": "I just love their design for all stunning details. You must know what can you do for a project before taking it, but with Archo, the sky is the limit.",
-      "username": "Peter Jefferson",
-      "usertitle": "Envato Customer"
-    },
-    {
-      "id": 4,
-      "image": "/assets/img/team/4.jpg",
-      "content": "I just love their design for all stunning details. You must know what can you do for a project before taking it, but with Archo, the sky is the limit.",
-      "username": "Mitchl Jhon",
-      "usertitle": "Envato Customer"
-    }
+  {
+    "id": 1,
+    "image": "/assets/img/team/1.jpg",
+    "content": "Desde el inicio, el equipo de H-DEQ entendió mis necesidades. Cada detalle fue considerado con gran cuidado, y el resultado final superó mis expectativas. Estoy completamente satisfecha y los recomiendo a quienes buscan calidad y profesionalismo.",
+    "username": "María González",
+    "usertitle": "Propietaria de una Casa Unifamiliar"
+  },
+  {
+    "id": 2,
+    "image": "/assets/img/team/2.jpg",
+    "content": "Elegir a H-DEQ para construir mi oficina fue una decisión acertada. Su profesionalismo y atención al detalle fueron excepcionales. Ahora tengo un espacio funcional y atractivo que refleja la visión de mi empresa. ¡Estoy muy satisfecho!",
+    "username": "Carlos Herrera",
+    "usertitle": "Empresario"
+  },
+  {
+    "id": 3,
+    "image": "/assets/img/team/3.jpg",
+    "content": "He colaborado con H-DEQ en varios proyectos y siempre me han impresionado. Su capacidad para manejar desafíos con creatividad y eficacia es admirable. La satisfacción de nuestros clientes es un testimonio del compromiso de la empresa con la excelencia.",
+    "username": "Lucía Martínez",
+    "usertitle": "Desarrolladora de Proyectos"
+  },
+  {
+    "id": 4,
+    "image": "/assets/img/team/4.jpg",
+    "content": "He trabajado con muchos contratistas, pero H-DEQ se destaca por su integridad y dedicación. Su enfoque en el diseño estructural y la calidad de construcción es incomparable. Mis proyectos han sido un éxito gracias a su excelente colaboración.",
+    "username": "Javier López",
+    "usertitle": "Inversionista Inmobiliario"
+  }
 ]

@@ -9,14 +9,14 @@ const NextProject = () => {
         <div className="row">
           <div className="col-md-12">
             <div className="content text-center">
-              <Link href="/project-details">
+              <Link href="/proyectos/casa-chacon/">
                 <a>
                   <Split>
                     <h6
                       className="wow txt words chars splitting"
                       data-splitting
                     >
-                      Next Project
+                      Ver otro Proyecto
                     </h6>
                   </Split>
 
@@ -25,7 +25,7 @@ const NextProject = () => {
                       className="wow txt words chars splitting"
                       data-splitting
                     >
-                      <b> Luxury </b> Furniture
+                      <b> Casa </b> Chacon
                     </h2>
                   </Split>
                 </a>

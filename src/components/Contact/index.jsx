@@ -13,7 +13,7 @@ const Contact = () => {
             >
               <form id="contact-form" method="post" action="contact.php">
                 <div className="section-head">
-                  <h6>Contact Us</h6>
+                  <h6>Contáctenos</h6>
                   <h4 className="playfont">Get In Touch</h4>
                 </div>
 
@@ -51,7 +51,7 @@ const Contact = () => {
                   </div>
 
                   <button type="submit" className="btn-curve btn-color">
-                    <span>Send Message</span>
+                    <span>Enviar Mensaje</span>
                   </button>
                 </div>
               </form>

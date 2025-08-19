@@ -12,7 +12,7 @@ import removeSlashFromPagination from "../../common/removeSlashFromPagination";
 
 SwiperCore.use([Navigation, Pagination, Parallax]);
 
-const IntroWithVertical2 = () => {
+const IntroWithVertical2 = ({ slider }) => {
   const [load, setLoad] = React.useState(true);
   React.useEffect(() => {
     setTimeout(() => {
@@ -82,7 +82,7 @@ const IntroWithVertical2 = () => {
               }}
               className="swiper-wrapper cta__slider"
             >
-              {intro2Data.map((slide) => (
+              {slider.map((slide) => (
                 <SwiperSlide
                   key={slide.id}
                   className="cta__slider-item swiper-slide"
@@ -90,7 +90,9 @@ const IntroWithVertical2 = () => {
                   <div className="media-wrapper slide-inner valign">
                     <div
                       className="bg-img"
-                      style={{ backgroundImage: `url(${slide.image})` }}
+                      style={{
+                        backgroundImage: `url('http://localhost:1337${slide.image.url}')`,
+                      }}
                       data-overlay-dark="5"
                     ></div>
                     <div className="container">
@@ -99,24 +101,28 @@ const IntroWithVertical2 = () => {
                           <div className="caption">
                             <div className="custom">
                               <h5 className="thin custom-font">
-                                {slide.title.first}
+                                {slide.title_first}
                               </h5>
                               <Split>
                                 <h1
                                   data-splitting
                                   className="words chars splitting"
                                 >
-                                  <Link href="#">{slide.title.second}</Link>
+                                  <Link href="#">{slide.title_second}</Link>
                                 </h1>
                               </Split>
                             </div>
-                            {slide?.content && (
+                            <p className="mt-10">
+                              {slide.content_first} <br />
+                              {slide.content_second}
+                            </p>
+                            {/*slide?.content && (
                               <p className="mt-10">
                                 {slide.content.first} <br />
                                 {slide.content.second}
                               </p>
-                            )}
-                            <Link href="/work2">
+                            )*/}
+                            <Link href="/proyectos">
                               <a className="btn-curve btn-color mt-30">
                                 <span>Nuestro Trabajo</span>
                               </a>

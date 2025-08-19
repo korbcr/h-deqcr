@@ -15,14 +15,25 @@ const AboutUs8 = () => {
             </div>
             <div className="box">
               <h2 className="fz-40 fw-600 ls1 mb-20">
-                25 años <br /> de Experiencia
+                25 años de <br />
+                Experiencia
               </h2>
               <p>Somos una empresa especializada en diseño y construcción.</p>
+              <br />
+              <p>
+                Creemos que el balance de un proyecto de éxito requiere
+                estrategia, innovación, creatividad, tecnología,
+                responsabilidad, profesionalismo, carácter y esto es lo que
+                somos. "Arquitectura en equilibrio".
+              </p>
             </div>
           </div>
           <div className="col-lg-7 img">
             <img src="/assets/img/about1.jpg" alt="" />
-
+            <div className="mb-20 mt-20" style={{ margin: 20 }}>
+              <h6 className="fw-100 text-u ls10 main-color mb-10">Nuestros</h6>
+              <h3 className="fw-400 text-u ls4">Valores</h3>
+            </div>
             <div className="feat mt-30">
               <div className="item">
                 <div>
@@ -40,6 +51,12 @@ const AboutUs8 = () => {
                 <div>
                   <h5>03</h5>
                   <h6>Honestidad</h6>
+                </div>
+              </div>
+              <div className="item">
+                <div>
+                  <h5>04</h5>
+                  <h6>Responsabilidad</h6>
                 </div>
               </div>
             </div>

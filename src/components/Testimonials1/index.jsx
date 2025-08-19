@@ -38,18 +38,15 @@ class Testimonials1 extends React.Component {
           data-overlay-dark={this.props.withBg ? 9 : null}
         >
           <div className="container">
-            {!this.props.bigTitle && (
+            {this.props.bigTitle && (
               <div className="section-head text-center">
                 <div className="row justify-content-center">
                   <div className="col-lg-6 col-md-8 col-sm-10">
-                    <h6
-                      className="wow fadeInDown"
-                      data-wow-delay=".3s"
-                    >
-                      Testimonials
+                    <h6 className="wow fadeInDown" data-wow-delay=".3s">
+                      Algunas referencias
                     </h6>
                     <h4 className="playfont wow flipInX" data-wow-delay=".5s">
-                      What People Says?
+                      ¿Qué dicen nuestros clientes?
                     </h4>
                   </div>
                 </div>

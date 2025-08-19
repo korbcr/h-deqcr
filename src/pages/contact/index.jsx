@@ -11,12 +11,12 @@ const Contact = () => {
   return (
     <MainLayout>
       <PageHeader
-        title="Contact Us"
-        fullPath={[
+        title="Contáctenos"
+        fullPath={[/*
           { id: 1, name: "home", url: "/" },
           { id: 2, name: "contact us", url: "/contact" },
-        ]}
-        image="/assets/img/pg2.jpg"
+        */]}
+        image="/assets/img/contact-us.png"
       />
       <section className="contact">
         <ContactInfo />
