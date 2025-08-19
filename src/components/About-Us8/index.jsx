@@ -24,7 +24,7 @@ const AboutUs8 = () => {
                 Creemos que el balance de un proyecto de éxito requiere
                 estrategia, innovación, creatividad, tecnología,
                 responsabilidad, profesionalismo, carácter y esto es lo que
-                somos. "Arquitectura en equilibrio".
+                somos. &quot;Arquitectura en equilibrio&quot;.
               </p>
             </div>
           </div>
