@@ -11,10 +11,27 @@ const ProjectDetails = ({proyecto}) => {
   React.useEffect(() => {
     document.querySelector("body").classList.add("index3");
   }, []);
+
+  // Verificar si el proyecto existe
+  if (!proyecto) {
+    return (
+      <MainLayout>
+        <div className="container">
+          <div className="row">
+            <div className="col-12 text-center">
+              <h1>Proyecto no encontrado</h1>
+              <p>El proyecto que buscas no existe o no está disponible.</p>
+            </div>
+          </div>
+        </div>
+      </MainLayout>
+    );
+  }
+
   return (
     <MainLayout>
       <PageHeader
-        title={proyecto.title}
+        title={proyecto?.title || "Proyecto"}
         fullPath={[
           { id: 1, name: "home", url: "/" },
           { id: 2, name: "portfolio", url: "/work1" },
@@ -22,7 +39,12 @@ const ProjectDetails = ({proyecto}) => {
         ]}
         image="/assets/img/portfolio/project1/bg.jpg"
       />
-      <ProjectIntro />
+      <ProjectIntro 
+        description={proyecto?.description || []} 
+        client={proyecto?.client || ""} 
+        date={proyecto?.date || new Date().toISOString()} 
+        category={proyecto?.category || ""} 
+      />
       <section className="projdtal">
         <div className="justified-gallery">
           <div className="row">
@@ -61,46 +83,85 @@ const ProjectDetails = ({proyecto}) => {
 };
 
 export async function getStaticPaths() {
+  try {
     const token = process.env.API_TOKEN;
     const res = await fetch(
       `${API_CONFIG.baseURL}/api/projects`,
       {
         method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    
+    if (!res.ok) {
+      throw new Error(`API responded with status: ${res.status}`);
     }
-  );  
-  const data = await res.json();
-  
-  const paths = data.data.map((project) => ({
-    params: { slug: project.slug },
-  }));
-  
+    
+    const data = await res.json();
+    
+    // Verificar que tenemos datos válidos
+    const paths = data.data?.map((project) => ({
+      params: { slug: project.slug },
+    })) || [];
 
-  return { paths, fallback: "blocking" };
+    return { 
+      paths, 
+      fallback: "blocking" 
+    };
+  } catch (error) {
+    console.error('Error fetching project paths:', error);
+    
+    // En caso de error, devolver paths vacíos
+    return { 
+      paths: [], 
+      fallback: "blocking" 
+    };
+  }
 }
 
 export async function getStaticProps({ params }) {
-  const token = process.env.API_TOKEN;
-  const res = await fetch(
-    `${API_CONFIG.baseURL}/api/projects?filters[slug][$eq]=${params.slug}&populate=image`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
+  try {
+    const token = process.env.API_TOKEN;
+    const res = await fetch(
+      `${API_CONFIG.baseURL}/api/projects?filters[slug][$eq]=${params.slug}&populate=image`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    
+    if (!res.ok) {
+      throw new Error(`API responded with status: ${res.status}`);
+    }
+    
+    const projectData = await res.json();  
+    
+    // Verificar si se encontró el proyecto
+    if (!projectData.data || projectData.data.length === 0) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        proyecto: projectData.data[0] || null
       },
-    }
-  );
-  const projectData = await res.json();  
-  
-
-  return {
-    props: {
-      proyecto: projectData.data[0]
-    }
-  };
-
+      // Revalidar cada 60 segundos
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error('Error fetching project:', error);
+    
+    // En caso de error, devolver 404
+    return {
+      notFound: true,
+    };
+  }
 }
 
 

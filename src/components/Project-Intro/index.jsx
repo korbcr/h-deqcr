@@ -2,15 +2,24 @@ import React from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
-const ProjectIntro = ({ description, client, date, category }) => {
-  const renderDescription = () =>
-    description.map((paragraph, p) => {
+const ProjectIntro = ({ description = [], client = "", date = new Date().toISOString(), category = "" }) => {
+  const renderDescription = () => {
+    if (!description || !Array.isArray(description) || description.length === 0) {
+      return (
+        <div className="text">
+          <p>Descripción no disponible.</p>
+        </div>
+      );
+    }
+    
+    return description.map((paragraph, p) => {
       return (
         <div key={`paragraph-${p}`} className="text">
-          <p>{paragraph.children[0].text}</p>
+          <p>{paragraph?.children?.[0]?.text || ""}</p>
         </div>
       );
     });
+  };
   return (
     <section className="intro-section section-padding">
       <div className="container">
@@ -34,9 +43,9 @@ const ProjectIntro = ({ description, client, date, category }) => {
             <div className="item mt-30">
               <h6>Fecha</h6>
               <p>
-                {format(new Date(date), "dd MMMM yyyy", {
+                {date ? format(new Date(date), "dd MMMM yyyy", {
                   locale: es,
-                })}
+                }) : "Fecha no disponible"}
               </p>
             </div>
           </div>
