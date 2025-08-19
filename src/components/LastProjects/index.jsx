@@ -2,6 +2,7 @@ import React from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import Link from "next/link";
+import { API_CONFIG } from "../../config/api";
 
 const LastProjects = ({ smallTitle, projects }) => {
   
@@ -13,7 +14,7 @@ const LastProjects = ({ smallTitle, projects }) => {
             className="item bg-img md-mb50 wow fadeInUp"
             data-wow-delay=".3s"
             style={{
-              backgroundImage: `url('http://localhost:1337${project.image[0].url}')`,
+              backgroundImage: `url('${API_CONFIG.baseURL}${project.image[0].url}')`,
             }}
           >
             <div className="cont">

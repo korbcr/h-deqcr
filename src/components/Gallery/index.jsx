@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import initIsotope from "../../common/initIsotope";
+import { API_CONFIG } from "../../config/api";
 
 const Gallery = ({files, smallTitle}) => {  
   const renderGallery = () => {
@@ -9,7 +10,7 @@ const Gallery = ({files, smallTitle}) => {
       return             <div key={`image-gallery-${index}`} className="col-lg-4 col-md-6 items theaters">
               <div className="item">
                 <div className="img">
-                  <img src={`http://localhost:1337${file.url}`} alt="" />
+                  <img src={`${API_CONFIG.baseURL}${file.url}`} alt="" />
                 </div>
                 <div className="cont">
                   <h5>

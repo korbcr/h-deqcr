@@ -10,6 +10,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import removeSlashFromPagination from "../../common/removeSlashFromPagination";
 
+import { API_CONFIG } from "../../config/api";
+
 SwiperCore.use([Navigation, Pagination, Parallax]);
 
 const IntroWithVertical2 = ({ slider }) => {
@@ -91,7 +93,7 @@ const IntroWithVertical2 = ({ slider }) => {
                     <div
                       className="bg-img"
                       style={{
-                        backgroundImage: `url('http://localhost:1337${slide.image.url}')`,
+                        backgroundImage: `url('${API_CONFIG.baseURL}${slide.image.url}')`,
                       }}
                       data-overlay-dark="5"
                     ></div>

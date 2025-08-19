@@ -6,6 +6,7 @@ import ProjectIntro from "../../components/Project-Intro";
 import NextProject from "../../components/Next-Project";
 import ProjectVideo from "../../components/Project-Video";
 import Gallery from "../../components/Gallery";
+import { API_CONFIG } from "../../config/api";
 
 const Proyectos= ({proyecto}) => {
   console.log(proyecto);
@@ -22,7 +23,7 @@ const Proyectos= ({proyecto}) => {
           { id: 2, name: "portfolio", url: "/work1" },
           { id: 3, name: "project details", url: "/project-details" },
         */]}
-        image={`http://localhost:1337${proyecto.image[0].url}`}
+        image={`${API_CONFIG.baseURL}${proyecto.image[0].url}`}
       />
       <ProjectIntro description={proyecto.description} client={proyecto.client} date={proyecto.date} category={proyecto.category}/>
       <Gallery files={proyecto.gallery} />
@@ -65,17 +66,9 @@ const Proyectos= ({proyecto}) => {
 };
 
 export async function getStaticPaths() {
-    const token =
-    "4224f5ef2a49a358957778b94bba2c877034ac7174519e5d961cb324e1fb0eb09e5aa1cd1870d395da86b38ff08af31132c9b97d6649440c7b7556048c6ffe6d576e6b513f7f31e1a004becdef899679818866f458ba6d5f45325ec9de5dbf40bd9d181f0d9d0e4c59caf72238c54aed54c41b7940ee0657be6a49a22db8a2f3";
-    /*
-  const res = await fetch("http://localhost:1337/api/projects", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  */
+  const token = process.env.API_TOKEN;
   const res = await fetch(
-    "http://localhost:1337/api/projects",
+    `${API_CONFIG.baseURL}/api/projects`,
     {
       method: "GET",
       headers: {
@@ -94,23 +87,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  /*
-    const token =
-    "4224f5ef2a49a358957778b94bba2c877034ac7174519e5d961cb324e1fb0eb09e5aa1cd1870d395da86b38ff08af31132c9b97d6649440c7b7556048c6ffe6d576e6b513f7f31e1a004becdef899679818866f458ba6d5f45325ec9de5dbf40bd9d181f0d9d0e4c59caf72238c54aed54c41b7940ee0657be6a49a22db8a2f3";
+
+  const token = process.env.API_TOKEN;  
   const res = await fetch(
-    `http://localhost:1337/api/projects?filters[slug][$eq]=${params.slug}&populate=image`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-*/
-  const token =
-    "4224f5ef2a49a358957778b94bba2c877034ac7174519e5d961cb324e1fb0eb09e5aa1cd1870d395da86b38ff08af31132c9b97d6649440c7b7556048c6ffe6d576e6b513f7f31e1a004becdef899679818866f458ba6d5f45325ec9de5dbf40bd9d181f0d9d0e4c59caf72238c54aed54c41b7940ee0657be6a49a22db8a2f3";
-  //const res = await fetch("http://localhost:1337/api/hero-sliders", {
-  const res = await fetch(
-    `http://localhost:1337/api/projects?filters[slug][$eq]=${params.slug}&populate=image&populate=gallery`,
+    `${API_CONFIG.baseURL}/api/projects?filters[slug][$eq]=${params.slug}&populate=image&populate=gallery`,
     {
       method: "GET",
       headers: {
@@ -127,60 +107,6 @@ export async function getStaticProps({ params }) {
     }
   };
 
-  /*
-  const data = await res.json();
-  
-
-  if (!data.data || data.data.length === 0) {
-    return { notFound: true };
-  }
-
-  return {
-    props: {
-      projecto: data,
-    },
-  };
-  */
 }
-
-/*
-export async function getStaticPaths() {
-  // Simulamos un array de IDs disponibles
-  const ids = ['1', '2', '3'];
-
-  const paths = ids.map(id => ({
-    params: { id }
-  }));
-  return {
-    paths,
-    fallback: 'blocking' // o true/in 'blocking' si quieres ISR
-  };
-}
-
-export async function getStaticProps({ params }) {
-  const { id } = params;
-
-  const token =
-    "4224f5ef2a49a358957778b94bba2c877034ac7174519e5d961cb324e1fb0eb09e5aa1cd1870d395da86b38ff08af31132c9b97d6649440c7b7556048c6ffe6d576e6b513f7f31e1a004becdef899679818866f458ba6d5f45325ec9de5dbf40bd9d181f0d9d0e4c59caf72238c54aed54c41b7940ee0657be6a49a22db8a2f3";
-  //const res = await fetch("http://localhost:1337/api/hero-sliders", {
-  const res = await fetch(
-    "http://localhost:1337/api/main-page?populate=ListLastProjects.image",
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-  const projectData = await res.json();  
-  console.log(projectData.data.ListLastProjects[0]);
-
-  return {
-    props: {
-      proyecto: projectData
-    }
-  };
-}
-*/
 
 export default Proyectos;

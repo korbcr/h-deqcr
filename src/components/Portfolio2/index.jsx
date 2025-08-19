@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import worksCardEffect from "../../common/worksCardEffect";
+import { API_CONFIG } from "../../config/api";
 
 const Portfolio2 = ({ projects }) => {
   React.useEffect(() => {
@@ -40,7 +41,7 @@ const Portfolio2 = ({ projects }) => {
               id={`tab-${index + 1}`}
               className={`bg-img tab-img ${index === 0 ? "current" : ""}`}
               style={{
-                backgroundImage: `url('http://localhost:1337${project.image[0].url}')`,
+                backgroundImage: `url('${API_CONFIG.baseURL}${project.image[0].url}')`,
               }}
               data-overlay-dark="2"
             ></div>
