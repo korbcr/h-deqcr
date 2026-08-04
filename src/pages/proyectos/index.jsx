@@ -70,19 +70,30 @@ const Proyectos = ({ proyectos }) => {
   );
 };
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps() {
+  try {
+    const token = process.env.API_TOKEN;
+    const res = await fetch(
+      `${API_CONFIG.baseURL}/api/projects?populate=image&pagination[pageSize]=100`,
+      {
+        method: "GET",
+        headers: {
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      }
+    );
 
-  const token = process.env.API_TOKEN;
-  const res = await fetch(
-    `${API_CONFIG.baseURL}/api/projects?populate=image&pagination[pageSize]=100`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    if (!res.ok) {
+      console.warn(`getStaticProps proyectos index: API responded with status ${res.status}`);
+      return {
+        props: {
+          proyectos: [],
+        },
+        revalidate: 60,
+      };
     }
-  );  
-  const projectList = await res.json();
+
+    const projectList = await res.json();
   
   /*
   const paths = data.data.map((project) => ({
@@ -104,11 +115,21 @@ export async function getStaticProps({ params }) {
   const projectData = await res.json();  
   */
 
-  return {
-    props: {
-      proyectos: projectList.data
-    }
-  };
+    return {
+      props: {
+        proyectos: projectList?.data || [],
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error("getStaticProps proyectos index failed:", error);
+    return {
+      props: {
+        proyectos: [],
+      },
+      revalidate: 60,
+    };
+  }
 
 }
 
