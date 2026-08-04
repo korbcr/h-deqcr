@@ -1,0 +1,231 @@
+import React from "react";
+import intro2Data from "../../data/Intro2.json";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Split from "../Split";
+import Link from "next/link";
+import SwiperCore, { Navigation, Pagination, Parallax } from "swiper";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import removeSlashFromPagination from "../../common/removeSlashFromPagination";
+
+import { API_CONFIG } from "../../config/api";
+
+SwiperCore.use([Navigation, Pagination, Parallax]);
+
+const IntroWithVertical2 = ({ slider = [] }) => {
+  const [load, setLoad] = React.useState(true);
+  const swiperRef = React.useRef(null);
+  const lastWheelRef = React.useRef(0);
+  React.useEffect(() => {
+    setTimeout(() => {
+      removeSlashFromPagination();
+    }, 1000);
+    setTimeout(() => {
+      setLoad(false);
+    });
+  }, []);
+
+  const navigationPrevRef = React.useRef(null);
+  const navigationNextRef = React.useRef(null);
+  const paginationRef = React.useRef(null);
+
+  const handleWheel = React.useCallback((event) => {
+    if (!swiperRef.current) {
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastWheelRef.current < 400) {
+      return;
+    }
+
+    lastWheelRef.current = now;
+    if (event.deltaY > 0) {
+      swiperRef.current.slideNext();
+    } else if (event.deltaY < 0) {
+      swiperRef.current.slidePrev();
+    }
+  }, []);
+  React.useEffect(() => {
+    const onWheel = (event) => {
+      const target = event.target;
+      if (!target || !(target instanceof Element)) {
+        return;
+      }
+
+      const container = target.closest(".cta__slider-wrapper .container");
+      if (!container) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      handleWheel(event);
+    };
+
+    document.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      document.removeEventListener("wheel", onWheel);
+    };
+  }, [handleWheel]);
+
+  return (
+    <>
+      <header className="slid-half">
+        <div
+          id="js-cta-slider"
+          className="cta__slider-wrapper nofull swiper-container"
+        >
+          {!load ? (
+            <Swiper
+              speed={800}
+              parallax={true}
+              navigation={{
+                prevEl: navigationPrevRef.current,
+                nextEl: navigationNextRef.current,
+              }}
+              pagination={{
+                type: "fraction",
+                clickable: true,
+                el: paginationRef.current,
+              }}
+              slidesPerView={1}
+              direction="vertical"
+              loop={true}
+              grabCursor={true}
+              watchSlidesProgress={true}
+              onBeforeInit={(swiper) => {
+                swiper.params.navigation.prevEl = navigationPrevRef.current;
+                swiper.params.navigation.nextEl = navigationNextRef.current;
+                swiper.params.pagination.el = paginationRef.current;
+              }}
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+                setTimeout(() => {
+                  for (var i = 0; i < swiper.slides.length; i++) {
+                    swiper.slides[i].childNodes[0].setAttribute(
+                      "data-swiper-parallax",
+                      0.75 * swiper.height
+                    );
+                  }
+
+                  swiper.params.navigation.prevEl = navigationPrevRef.current;
+                  swiper.params.navigation.nextEl = navigationNextRef.current;
+
+                  swiper.params.pagination.el = paginationRef.current;
+
+                  swiper.navigation.destroy();
+                  swiper.navigation.init();
+                  swiper.navigation.update();
+
+                  swiper.pagination.destroy();
+                  swiper.pagination.init();
+                  swiper.pagination.update();
+                });
+              }}
+              className="swiper-wrapper cta__slider"
+            >
+              {slider && slider.length > 0 ? slider.map((slide) => (
+                <SwiperSlide
+                  key={slide?.id || Math.random()}
+                  className="cta__slider-item swiper-slide"
+                >
+                  <div className="media-wrapper slide-inner valign">
+                    <div
+                      className="bg-img"
+                      style={{
+                        backgroundImage: `url('${slide?.image?.url ? slide.image.url : '/assets/img/sliders/1.jpg'}')`,
+                      }}
+                      data-overlay-dark="5"
+                    ></div>
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-lg-10">
+                          <div className="caption">
+                            <div className="custom">
+                              <h5 className="thin custom-font">
+                                {slide.title_first}
+                              </h5>
+                              <Split>
+                                <h1
+                                  data-splitting
+                                  className="words chars splitting"
+                                >
+                                  <Link href="#">{slide.title_second}</Link>
+                                </h1>
+                              </Split>
+                            </div>
+                            <p className="mt-10">
+                              {slide.content_first} <br />
+                              {slide.content_second}
+                            </p>
+                            {/*slide?.content && (
+                              <p className="mt-10">
+                                {slide.content.first} <br />
+                                {slide.content.second}
+                              </p>
+                            )*/}
+                            <Link href="/proyectos">
+                              <a className="btn-curve btn-color mt-30">
+                                <span>Proyectos</span>
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              )) : (
+                <SwiperSlide className="cta__slider-item swiper-slide">
+                  <div className="media-wrapper slide-inner valign">
+                    <div
+                      className="bg-img"
+                      style={{
+                        backgroundImage: `url('/assets/img/sliders/1.jpg')`,
+                      }}
+                      data-overlay-dark="5"
+                    ></div>
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-lg-7 col-md-9">
+                          <div className="caption center">
+                            <h1>No hay contenido disponible</h1>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              )}
+            </Swiper>
+          ) : null}
+          <div className="cta__slider-arrows">
+            <i
+              id="js-cta-slider-next"
+              ref={navigationNextRef}
+              className="cta__slider-arrow cta__slider-arrow--next"
+            >
+              <i className="fas fa-chevron-up"></i>
+            </i>
+            <i
+              id="js-cta-slider-previous"
+              ref={navigationPrevRef}
+              className="cta__slider-arrow cta__slider-arrow--previous"
+            >
+              <i className="fas fa-chevron-down"></i>
+            </i>
+          </div>
+        </div>
+        <div
+          ref={paginationRef}
+          className="swiper-pagination top"
+        ></div>
+      </header>
+    </>
+  );
+};
+
+export default IntroWithVertical2;
