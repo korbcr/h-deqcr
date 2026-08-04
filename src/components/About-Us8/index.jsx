@@ -15,7 +15,7 @@ const AboutUs8 = () => {
             </div>
             <div className="box">
               <h2 className="fz-40 fw-600 ls1 mb-20">
-                25 años de <br />
+                20 años de <br />
                 Experiencia
               </h2>
               <p>Somos una empresa especializada en diseño y construcción.</p>

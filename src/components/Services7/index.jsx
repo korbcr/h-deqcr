@@ -14,12 +14,30 @@ const Services7 = ({ services = [] }) => {
       return (
         <div key={`service-${index}`} className="col-lg-4">
           <div className="item md-mb50">
-            <span className={`icon ${service?.icon_name || ''}`}></span>
-            <h6>{service?.title || 'Servicio'}</h6>
+            {service.icon_name === "flaticon-concrete" ? (
+              <div
+                style={{
+                  width: "50px",
+                  height: "82px",
+                  marginBottom: "20px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src="/assets/img/icons/flaticon-concrete.png"
+                  alt="flaticon-concrete"
+                  style={{ width: "50px" }}
+                />
+              </div>
+            ) : (
+              <span className={`icon ${service?.icon_name || ""}`}></span>
+            )}
+            <h6>{service?.title || "Servicio"}</h6>
             {service?.description?.map((paragraph, p) => {
               return (
                 <div key={`paragraph-${p}`}>
-                  <p>{paragraph?.children?.[0]?.text || ''}</p>
+                  <p>{paragraph?.children?.[0]?.text || ""}</p>
                   <br />
                 </div>
               );
@@ -38,9 +56,7 @@ const Services7 = ({ services = [] }) => {
           <h6 className="fw-100 text-u ls10 main-color mb-10">Nuestros</h6>
           <h3>Servicios</h3>
         </div>
-        <div className="row">
-          {renderServices()}
-        </div>
+        <div className="row">{renderServices()}</div>
       </div>
     </section>
   );

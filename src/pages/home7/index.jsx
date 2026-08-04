@@ -8,7 +8,7 @@ import Services7 from "../../components/Services7";
 import Testimonials1 from "../../components/Testimonials1";
 import WorkWithoutFilter from "../../components/Work-Without-Filter";
 import IntroWithVertical2 from "../../components/Intro-with-vertical2";
-import Portfolio2 from "../../components/Portfolio2";
+import ProyectosDestacados from "../../components/ProyectosDestacados";
 import { apiRequest, API_CONFIG } from "../../config/api";
 
 const Home7 = ({ content = { data: {} } }) => {
@@ -35,10 +35,10 @@ const Home7 = ({ content = { data: {} } }) => {
       <AboutUs8 />
       <Services7 services={services}/>
       {/*<WorkWithoutFilter />*/}
-      <Portfolio2 projects={featuredProjects}/>
+      <ProyectosDestacados projects={featuredProjects}/>
       {/*<Team3 />*/}
-      <Testimonials1 bigTitle />
-      <LastProjects projects={projects}/>
+      {/*<Testimonials1 bigTitle />*/}
+      {/*<LastProjects projects={projects}/>*/}
     </MainLayout>
   );
 };

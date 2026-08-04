@@ -27,8 +27,8 @@ const Footer = ({ classText }) => {
                   <span className="icon pe-7s-mail"></span>
                   <div className="cont">
                     <h6>Correos</h6>
+                    <p>h-deq.oficina@h-deq.com</p>
                     <p>sdelgado@h-deq.com</p>
-                    <p>ventas@hdeq.com</p>
                   </div>
                 </li>
                 <li>
@@ -36,6 +36,7 @@ const Footer = ({ classText }) => {
                   <div className="cont">
                     <h6>Teléfonos</h6>
                     <p>+506 88402755</p>
+                    <p>+506 22614790</p>
                   </div>
                 </li>
               </ul>

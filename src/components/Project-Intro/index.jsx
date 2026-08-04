@@ -49,12 +49,14 @@ const ProjectIntro = ({ description = [], client = "", date = new Date().toISOSt
               </p>
             </div>
           </div>
+          {/*
           <div className="col-lg-4">
             <div className="item mt-30">
               <h6>Categoria</h6>
               <p>{category}</p>
             </div>
           </div>
+          */}
           {/*<div className="col-lg-4">
             <div className="item mt-30">
               <h6>Tags</h6>

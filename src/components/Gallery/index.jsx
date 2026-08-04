@@ -4,25 +4,28 @@ import Link from "next/link";
 import initIsotope from "../../common/initIsotope";
 import { API_CONFIG } from "../../config/api";
 
-const Gallery = ({files, smallTitle}) => {  
+const Gallery = ({ files, smallTitle }) => {
   const renderGallery = () => {
-    const gallery = files?.map((file, index)=>{
-      return             <div key={`image-gallery-${index}`} className="col-lg-4 col-md-6 items theaters">
-              <div className="item">
-                <div className="img">
-                  <img src={`${API_CONFIG.baseURL}${file.url}`} alt="" />
-                </div>
-                <div className="cont">
-                  <h5>
-                    {file.caption}
-                  </h5>
-                  <span>{file.alternativeText}</span>
-                </div>
-              </div>
+    const gallery = files?.map((file, index) => {
+      return (
+        <div
+          key={`image-gallery-${index}`}
+          className={`col-lg-4 col-md-6 items ${file.caption}`}
+        >
+          <div className="item">
+            <div className="img">
+              <img src={`${file.url}`} alt="" />
             </div>
+            <div className="cont">
+              {/*<h5>{file.caption}</h5>*/}
+              <span>{file.alternativeText}</span>
+            </div>
+          </div>
+        </div>
+      );
     });
     return gallery;
-  }
+  };
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -31,22 +34,25 @@ const Gallery = ({files, smallTitle}) => {
   }, []);
   return (
     <>
-    <section className="blog-grid section-padding"         style={{
+      <section
+        className="blog-grid section-padding"
+        style={{
           padding: "0px",
-        }}>
-      <div className="container">
-        {!smallTitle ? (
-          <div className="main-header text-center">
-            <h3>Gallería del Proyecto</h3>
-            <div className="tex-bg">Gallería</div>
-          </div>
-        ) : (
-          <div className="section-head">
-            <h3>Gallería del Proyecto</h3>
-          </div>
-        )}
-      </div>
-    </section>    
+        }}
+      >
+        <div className="container">
+          {!smallTitle ? (
+            <div className="main-header text-center">
+              <h3>Galería del Proyecto</h3>
+              <div className="tex-bg">Galería</div>
+            </div>
+          ) : (
+            <div className="section-head">
+              <h3>Galería del Proyecto</h3>
+            </div>
+          )}
+        </div>
+      </section>
       <section
         className="works filter-img three-col section-padding"
         style={{
@@ -59,15 +65,17 @@ const Gallery = ({files, smallTitle}) => {
               <span data-filter="*" className="active">
                 Todas
               </span>
+              {/*}
               <span data-filter=".interior">Interior</span>
-              <span data-filter=".theaters">Exteriores</span>
-              <span data-filter=".residential">Planos</span>
+              <span data-filter=".exterior">Exteriores</span>
+              <span data-filter=".plano">Planos</span>
+              */}
             </div>
           </div>
           <div className="row gallery">
             {renderGallery()}
             {/*
-            <div className="col-lg-4 col-md-6 items theaters">
+            <div className="col-lg-4 col-md-6 items exterior">
               <div className="item">
                 <div className="img">
                   <img src="/assets/img/works/col/2.jpg" alt="" />

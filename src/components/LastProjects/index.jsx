@@ -22,7 +22,7 @@ const LastProjects = ({ smallTitle, projects = [] }) => {
             className="item bg-img md-mb50 wow fadeInUp"
             data-wow-delay=".3s"
             style={{
-              backgroundImage: `url('${API_CONFIG.baseURL}${project.image[0].url}')`,
+              backgroundImage: `url('${project.image[0].url}')`,
             }}
           >
             <div className="cont">

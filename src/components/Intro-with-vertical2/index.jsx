@@ -16,6 +16,8 @@ SwiperCore.use([Navigation, Pagination, Parallax]);
 
 const IntroWithVertical2 = ({ slider = [] }) => {
   const [load, setLoad] = React.useState(true);
+  const swiperRef = React.useRef(null);
+  const lastWheelRef = React.useRef(0);
   React.useEffect(() => {
     setTimeout(() => {
       removeSlashFromPagination();
@@ -28,6 +30,46 @@ const IntroWithVertical2 = ({ slider = [] }) => {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   const paginationRef = React.useRef(null);
+
+  const handleWheel = React.useCallback((event) => {
+    if (!swiperRef.current) {
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastWheelRef.current < 400) {
+      return;
+    }
+
+    lastWheelRef.current = now;
+    if (event.deltaY > 0) {
+      swiperRef.current.slideNext();
+    } else if (event.deltaY < 0) {
+      swiperRef.current.slidePrev();
+    }
+  }, []);
+  React.useEffect(() => {
+    const onWheel = (event) => {
+      const target = event.target;
+      if (!target || !(target instanceof Element)) {
+        return;
+      }
+
+      const container = target.closest(".cta__slider-wrapper .container");
+      if (!container) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      handleWheel(event);
+    };
+
+    document.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      document.removeEventListener("wheel", onWheel);
+    };
+  }, [handleWheel]);
 
   return (
     <>
@@ -60,6 +102,7 @@ const IntroWithVertical2 = ({ slider = [] }) => {
                 swiper.params.pagination.el = paginationRef.current;
               }}
               onSwiper={(swiper) => {
+                swiperRef.current = swiper;
                 setTimeout(() => {
                   for (var i = 0; i < swiper.slides.length; i++) {
                     swiper.slides[i].childNodes[0].setAttribute(
@@ -93,7 +136,7 @@ const IntroWithVertical2 = ({ slider = [] }) => {
                     <div
                       className="bg-img"
                       style={{
-                        backgroundImage: `url('${slide?.image?.url ? API_CONFIG.baseURL + slide.image.url : '/assets/img/sliders/1.jpg'}')`,
+                        backgroundImage: `url('${slide?.image?.url ? slide.image.url : '/assets/img/sliders/1.jpg'}')`,
                       }}
                       data-overlay-dark="5"
                     ></div>
@@ -126,7 +169,7 @@ const IntroWithVertical2 = ({ slider = [] }) => {
                             )*/}
                             <Link href="/proyectos">
                               <a className="btn-curve btn-color mt-30">
-                                <span>Nuestro Trabajo</span>
+                                <span>Proyectos</span>
                               </a>
                             </Link>
                           </div>
@@ -178,7 +221,7 @@ const IntroWithVertical2 = ({ slider = [] }) => {
         </div>
         <div
           ref={paginationRef}
-          className="swiper-pagination top custom-font"
+          className="swiper-pagination top"
         ></div>
       </header>
     </>

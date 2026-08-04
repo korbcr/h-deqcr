@@ -53,7 +53,7 @@ const Portfolio2 = ({ projects = [] }) => {
               id={`tab-${index + 1}`}
               className={`bg-img tab-img ${index === 0 ? "current" : ""}`}
               style={{
-                backgroundImage: `url('${project?.image?.[0]?.url ? API_CONFIG.baseURL + project.image[0].url : "/assets/img/portfolio/project1/bg.jpg"}')`,
+                backgroundImage: `url('${project?.image?.[0]?.url ? project.image[0].url : "/assets/img/portfolio/project1/bg.jpg"}')`,
               }}
               data-overlay-dark="2"
             ></div>
