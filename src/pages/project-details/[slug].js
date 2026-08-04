@@ -85,18 +85,16 @@ const ProjectDetails = ({proyecto}) => {
 export async function getStaticPaths() {
   try {
     const token = process.env.API_TOKEN;
-    const res = await fetch(
-      `${API_CONFIG.baseURL}/api/projects`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`${API_CONFIG.baseURL}/api/projects`, {
+      method: "GET",
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
     
     if (!res.ok) {
-      throw new Error(`API responded with status: ${res.status}`);
+      console.warn(`getStaticPaths project-details: API responded with status ${res.status}`);
+      return { paths: [], fallback: "blocking" };
     }
     
     const data = await res.json();
@@ -124,18 +122,23 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   try {
     const token = process.env.API_TOKEN;
+    const slug = encodeURIComponent(params.slug);
     const res = await fetch(
-      `${API_CONFIG.baseURL}/api/projects?filters[slug][$eq]=${params.slug}&populate=image`,
+      `${API_CONFIG.baseURL}/api/projects?filters[slug][$eq]=${slug}&populate=image`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       }
     );
     
     if (!res.ok) {
-      throw new Error(`API responded with status: ${res.status}`);
+      console.warn(`getStaticProps project-details/${params.slug}: API responded with status ${res.status}`);
+      return {
+        notFound: true,
+        revalidate: 60,
+      };
     }
     
     const projectData = await res.json();  
@@ -155,11 +158,12 @@ export async function getStaticProps({ params }) {
       revalidate: 60,
     };
   } catch (error) {
-    console.error('Error fetching project:', error);
+    console.error(`Error fetching project-details/${params.slug}:`, error);
     
     // En caso de error, devolver 404
     return {
       notFound: true,
+      revalidate: 60,
     };
   }
 }

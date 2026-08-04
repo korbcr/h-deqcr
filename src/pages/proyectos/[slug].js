@@ -66,46 +66,70 @@ const Proyectos= ({proyecto}) => {
 };
 
 export async function getStaticPaths() {
-  const token = process.env.API_TOKEN;
-  const res = await fetch(
-    `${API_CONFIG.baseURL}/api/projects`,
-    {
+  try {
+    const token = process.env.API_TOKEN;
+    const res = await fetch(`${API_CONFIG.baseURL}/api/projects`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
-    }
-  );  
-  const data = await res.json();
-  
-  const paths = data.data.map((project) => ({
-    params: { slug: project.slug },
-  }));
-  
+    });
 
-  return { paths, fallback: "blocking" };
+    if (!res.ok) {
+      console.warn(`getStaticPaths proyectos: API responded with status ${res.status}`);
+      return { paths: [], fallback: "blocking" };
+    }
+
+    const data = await res.json();
+    const paths = (data?.data || [])
+      .filter((project) => project?.slug)
+      .map((project) => ({
+        params: { slug: project.slug },
+      }));
+
+    return { paths, fallback: "blocking" };
+  } catch (error) {
+    console.error("getStaticPaths proyectos failed:", error);
+    return { paths: [], fallback: "blocking" };
+  }
 }
 
 export async function getStaticProps({ params }) {
+  try {
+    const token = process.env.API_TOKEN;
+    const slug = encodeURIComponent(params.slug);
+    const res = await fetch(
+      `${API_CONFIG.baseURL}/api/projects?filters[slug][$eq]=${slug}&populate=image&populate=gallery`,
+      {
+        method: "GET",
+        headers: {
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      }
+    );
 
-  const token = process.env.API_TOKEN;  
-  const res = await fetch(
-    `${API_CONFIG.baseURL}/api/projects?filters[slug][$eq]=${params.slug}&populate=image&populate=gallery`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
+    if (!res.ok) {
+      console.warn(`getStaticProps proyectos/${params.slug}: API responded with status ${res.status}`);
+      return { notFound: true, revalidate: 60 };
+    }
+
+    const projectData = await res.json();
+    const proyecto = projectData?.data?.[0] || null;
+
+    if (!proyecto) {
+      return { notFound: true, revalidate: 60 };
+    }
+
+    return {
+      props: {
+        proyecto,
       },
-    }
-  );
-  const projectData = await res.json();  
-  
-
-  return {
-    props: {
-      proyecto: projectData.data[0]
-    }
-  };
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error(`getStaticProps proyectos/${params.slug} failed:`, error);
+    return { notFound: true, revalidate: 60 };
+  }
 
 }
 
