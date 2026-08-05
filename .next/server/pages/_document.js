@@ -53,6 +53,15 @@ class MyDocument extends next_document__WEBPACK_IMPORTED_MODULE_1__["default"] {
                             href: "/assets/img/favicon.ico"
                         }),
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("link", {
+                            rel: "preconnect",
+                            href: "https://fonts.googleapis.com"
+                        }),
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("link", {
+                            rel: "preconnect",
+                            href: "https://fonts.gstatic.com",
+                            crossOrigin: ""
+                        }),
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("link", {
                             href: "https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap",
                             rel: "stylesheet"
                         }),
