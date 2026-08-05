@@ -7,60 +7,43 @@ import "../styles/globals.css";
 import Cursor from "../components/Cursor";
 import ScrollToTop from "../components/scrollToTop";
 
+const ROUTE_BODY_CLASS_MAP = [
+  { match: /^\/(home1|home2|home3)\/?$/, className: "homepage" },
+  { match: /^\/home4\/?$/, className: "index4" },
+  { match: /^\/home6\/?$/, className: "index2" },
+  { match: /^\/(home5|home7|about|blog-details|blogs|contact|demos|project-details|proyectos|work1|work2|work3)(\/.*)?\/?$/, className: "index3" },
+];
+
+const BODY_THEME_CLASSES = ["homepage", "index2", "index3", "index4"];
+
+function getBodyClassForPath(pathname) {
+  const entry = ROUTE_BODY_CLASS_MAP.find(({ match }) => match.test(pathname));
+  return entry?.className || "";
+}
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
   React.useEffect(() => {
-    const body = document.body;
-    const bodyClasses = ["homepage", "index2", "index3", "index4"];
+    const applyBodyClass = () => {
+      const body = document.body;
 
-    const routeBodyClassMap = {
-      "/": "index3",
-      "/about": "index3",
-      "/blog-details": "index3",
-      "/blogs": "index3",
-      "/contact": "index3",
-      "/demos": "index3",
-      "/home1": "homepage",
-      "/home2": "homepage",
-      "/home3": "homepage",
-      "/home4": "index4",
-      "/home5": "index3",
-      "/home6": "index2",
-      "/home7": "index3",
-      "/project-details": "index3",
-      "/project-details/[slug]": "index3",
-      "/proyectos": "index3",
-      "/proyectos/[slug]": "index3",
-      "/work1": "index3",
-      "/work2": "index3",
-      "/work3": "index3",
-    };
+      BODY_THEME_CLASSES.forEach((className) => body.classList.remove(className));
 
-    const applyBodyClass = (pathname) => {
-      bodyClasses.forEach((className) => body.classList.remove(className));
-      const nextClass = routeBodyClassMap[pathname];
-      if (nextClass) {
-        body.classList.add(nextClass);
+      const themeClass = getBodyClassForPath(router.pathname);
+      if (themeClass) {
+        body.classList.add(themeClass);
       }
     };
 
-    applyBodyClass(router.pathname);
+    applyBodyClass();
 
-    const handleRouteChange = (url) => {
-      const pathname = url.split("?")[0];
-      const routeKey = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
-      applyBodyClass(routeKey);
-    };
-
-    router.events.on("routeChangeComplete", handleRouteChange);
-    router.events.on("hashChangeComplete", handleRouteChange);
+    router.events.on("routeChangeComplete", applyBodyClass);
 
     return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-      router.events.off("hashChangeComplete", handleRouteChange);
+      router.events.off("routeChangeComplete", applyBodyClass);
     };
-  }, [router.pathname, router.events]);
+  }, [router]);
 
   return (
     <>
