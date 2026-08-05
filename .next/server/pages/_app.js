@@ -27,6 +27,8 @@ var script_default = /*#__PURE__*/__webpack_require__.n(script_namespaceObject);
 // EXTERNAL MODULE: external "next/head"
 var head_ = __webpack_require__(968);
 var head_default = /*#__PURE__*/__webpack_require__.n(head_);
+// EXTERNAL MODULE: external "next/router"
+var router_ = __webpack_require__(1853);
 ;// CONCATENATED MODULE: ./src/common/loadingPace.js
 const loadingPace = ()=>{
     let preloader = document.querySelector("#preloader"), loadingText = document.querySelector(".loading-text");
@@ -215,7 +217,63 @@ const ScrollToTop = ()=>{
 
 
 
+
 function MyApp({ Component , pageProps  }) {
+    const router = (0,router_.useRouter)();
+    external_react_default().useEffect(()=>{
+        const body = document.body;
+        const bodyClasses = [
+            "homepage",
+            "index2",
+            "index3",
+            "index4"
+        ];
+        const routeBodyClassMap = {
+            "/": "index3",
+            "/about": "index3",
+            "/blog-details": "index3",
+            "/blogs": "index3",
+            "/contact": "index3",
+            "/demos": "index3",
+            "/home1": "homepage",
+            "/home2": "homepage",
+            "/home3": "homepage",
+            "/home4": "index4",
+            "/home5": "index3",
+            "/home6": "index2",
+            "/home7": "index3",
+            "/project-details": "index3",
+            "/project-details/[slug]": "index3",
+            "/proyectos": "index3",
+            "/proyectos/[slug]": "index3",
+            "/work1": "index3",
+            "/work2": "index3",
+            "/work3": "index3"
+        };
+        const applyBodyClass = (pathname)=>{
+            bodyClasses.forEach((className)=>body.classList.remove(className)
+            );
+            const nextClass = routeBodyClassMap[pathname];
+            if (nextClass) {
+                body.classList.add(nextClass);
+            }
+        };
+        applyBodyClass(router.pathname);
+        const handleRouteChange = (url)=>{
+            const pathname = url.split("?")[0];
+            const routeKey = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
+            applyBodyClass(routeKey);
+        };
+        router.events.on("routeChangeComplete", handleRouteChange);
+        router.events.on("hashChangeComplete", handleRouteChange);
+        return ()=>{
+            router.events.off("routeChangeComplete", handleRouteChange);
+            router.events.off("hashChangeComplete", handleRouteChange);
+        };
+    }, [
+        router.pathname,
+        router.events
+    ]);
     return(/*#__PURE__*/ (0,jsx_runtime_.jsxs)(jsx_runtime_.Fragment, {
         children: [
             /*#__PURE__*/ (0,jsx_runtime_.jsxs)((head_default()), {
@@ -272,6 +330,13 @@ function MyApp({ Component , pageProps  }) {
 /***/ ((module) => {
 
 module.exports = require("next/head");
+
+/***/ }),
+
+/***/ 1853:
+/***/ ((module) => {
+
+module.exports = require("next/router");
 
 /***/ }),
 
