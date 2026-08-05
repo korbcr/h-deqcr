@@ -1,6 +1,26 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
+  "/about": "pages/about.html",
+  "/blog-details": "pages/blog-details.html",
+  "/blogs": "pages/blogs.html",
+  "/contact": "pages/contact.html",
+  "/demos": "pages/demos.html",
+  "/home1": "pages/home1.html",
+  "/home2": "pages/home2.js",
+  "/home3": "pages/home3.html",
+  "/home4": "pages/home4.html",
+  "/home5": "pages/home5.js",
+  "/home6": "pages/home6.html",
+  "/home7": "pages/home7.js",
+  "/": "pages/index.js",
+  "/project-details/[slug]": "pages/project-details/[slug].js",
+  "/project-details": "pages/project-details.html",
+  "/proyectos/[slug]": "pages/proyectos/[slug].js",
+  "/proyectos": "pages/proyectos.js",
+  "/work1": "pages/work1.html",
+  "/work2": "pages/work2.html",
+  "/work3": "pages/work3.html",
   "/_error": "pages/_error.js",
-  "/": "pages/index.js"
+  "/404": "pages/404.html"
 }

@@ -1,5 +1,7 @@
 const path = require("path");
 
+const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
+
 module.exports = {
   reactStrictMode: true,
   sassOptions: {
@@ -17,11 +19,11 @@ module.exports = {
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:1337/api/:path*",
+        destination: `${backendUrl}/api/:path*`,
       },
       {
         source: "/uploads/:path*",
-        destination: "http://localhost:1337/uploads/:path*",
+        destination: `${backendUrl}/uploads/:path*`,
       },
     ];
   },  
