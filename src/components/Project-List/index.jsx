@@ -152,7 +152,7 @@ const ProjectList = ({ proyectos }) => {
             </div>
             */}
             {proyectos.map((proyecto) => (
-              <div className={`col-lg-4 col-md-6 items ${proyecto.category.toLowerCase()}`} 
+              <div className={`col-lg-4 col-md-6 items ${proyecto.category?.toLowerCase()}`} 
                 key={proyecto.id} 
                 onClick={() => window.location.href = `/proyectos/${proyecto.slug}`}>
                 <div className="item">
