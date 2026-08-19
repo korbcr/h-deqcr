@@ -23,7 +23,7 @@ const Proyectos= ({proyecto}) => {
           { id: 2, name: "portfolio", url: "/work1" },
           { id: 3, name: "project details", url: "/project-details" },
         */]}
-        image={`${proyecto.image[0].url}`}
+        image={`${proyecto.image?.[0]?.url || "/assets/img/pg1.jpg"}`}
       />
       <ProjectIntro description={proyecto.description} client={proyecto.client} date={proyecto.date} category={proyecto.category}/>
       <Gallery files={proyecto.gallery} />
