@@ -157,7 +157,7 @@ const ProjectList = ({ proyectos }) => {
                 onClick={() => window.location.href = `/proyectos/${proyecto.slug}`}>
                 <div className="item">
                   <div className="img">
-                    <img src={`${proyecto.image[0].url}`} alt={proyecto.title} />
+                    <img src={proyecto.image?.[0]?.url || "/assets/img/pg1.jpg"} alt={proyecto.title} />
                   </div>
                   <div className="cont">
                     <h5>
